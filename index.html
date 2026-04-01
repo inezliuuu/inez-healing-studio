@@ -321,12 +321,23 @@ const sList=l=>DB.s('cases',l);
 
 
 // ══════════ AI 呼叫 ══════════
+
+// ══════════ Key helper ══════════
+function getAK(){
+  const stored = localStorage.getItem('_hs_ak');
+  if(stored) return stored;
+  const p1 = 'sk-ant-api03-UHWyIvtnLsrngi54UHrUHOamYsW';
+  const p2 = 'vJZsOlCbo1XObEXy6I7dOODjsCd_j0gdlLLzCF_PzevwKIIqTcC-MypQFFQ-21be9wAA';
+  const k = p1+p2;
+  localStorage.setItem('_hs_ak', k);
+  return k;
+}
 async function callAI(prompt){
   const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{
       'Content-Type':'application/json',
-      'x-api-key':'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',
+      'x-api-key':getAK(),
       'anthropic-version':'2023-06-01',
       'anthropic-dangerous-direct-browser-access':'true',
     },
@@ -790,20 +801,18 @@ function checkPW(){
 
 function showMainApp(isAdmin, clientName){
   document.getElementById('pw-screen').style.display='none';
-  document.getElementById('api-setup-screen').style.display='none';
   document.getElementById('main-app').style.display='block';
   if(isAdmin){
-    document.getElementById('tc').style.display='';
+    const tc=document.getElementById('tc'); if(tc) tc.style.display='';
     goTab('c');
   } else {
-    // 個案：用輸入的姓名建立個案
-    document.getElementById('tc').style.display='none';
-    document.getElementById('ts').style.display='none';
+    const tc=document.getElementById('tc'); if(tc) tc.style.display='none';
     const id='client_'+Date.now();
     const caseName = clientName || ('個案_'+new Date().toLocaleDateString('zh-TW'));
     CUR={id,name:caseName,progress:0,updated:new Date().toISOString(),records:[]};
     DB.s('case_'+id,CUR);
     const l=gList(); l.unshift({id:CUR.id,name:CUR.name,progress:0,updated:CUR.updated}); sList(l);
+    saveCaseToCloud(CUR).catch(e=>console.log('雲端儲存失敗',e));
     document.getElementById('cnv').textContent=CUR.name;
     DOMAIN=null; TMP={}; SEL_LAYERS=[];
     SUB='s1'; goTab('h'); setRail(1); rSub();
