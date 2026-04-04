@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inez Healing Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root { --g:#b8960c; --gl:#e8c44a; --dk:#2c1810; --ink:#1a1410; --bg:#f5f0e8; --text:#2c2018; --muted:#8a7060; --gr:#7a9e7e; --bl:#6e8faf; --pu:#9e7a8e; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Serif TC',serif; min-height:100vh; }
+body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse at 15% 20%,rgba(184,150,12,.07) 0%,transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(184,150,12,.05) 0%,transparent 50%); pointer-events:none; z-index:0; }
+.wrap { max-width:720px; margin:0 auto; padding:0 20px 80px; position:relative; z-index:1; }
+header { text-align:center; padding:44px 0 28px; border-bottom:1px solid rgba(184,150,12,.22); margin-bottom:24px; }
+.logo { font-size:36px; color:var(--g); display:block; margin-bottom:6px; animation:breathe 5s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{opacity:1} 50%{opacity:.55} }
+header h1 { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; letter-spacing:.14em; color:var(--dk); }
+header p { font-size:11px; letter-spacing:.2em; color:var(--g); margin-top:5px; }
+.tabs { display:flex; border-bottom:1px solid rgba(184,150,12,.18); margin-bottom:22px; }
+.tab { flex:1; padding:11px 8px; text-align:center; font-size:13px; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; transition:all .3s; }
+.tab.on { color:var(--g); border-bottom-color:var(--g); }
+.pg { display:none; } .pg.on { display:block; }
+.lbl { font-size:10px; letter-spacing:.14em; color:var(--g); text-transform:uppercase; display:block; margin-bottom:6px; margin-top:14px; }
+input[type=text], textarea { width:100%; padding:10px 13px; border:1px solid rgba(184,150,12,.28); background:rgba(255,255,255,.6); color:var(--ink); font-family:'Noto Serif TC',serif; font-size:13px; border-radius:3px; outline:none; line-height:1.75; }
+input[type=text] { height:42px; }
+textarea { resize:vertical; }
+input:focus, textarea:focus { border-color:var(--g); background:rgba(255,255,255,.85); }
+input[type=password] { width:100%; padding:10px 13px; border:1px solid rgba(184,150,12,.28); background:rgba(255,255,255,.6); color:var(--ink); font-family:'Noto Serif TC',serif; font-size:13px; border-radius:3px; outline:none; height:42px; margin-bottom:10px; }
+input[type=password]:focus { border-color:var(--g); }
+::placeholder { color:rgba(106,90,72,.45); }
+.bp { padding:10px 24px; border:1.5px solid var(--g); background:var(--g); color:white; font-family:'Noto Serif TC',serif; font-size:13px; cursor:pointer; border-radius:3px; transition:all .25s; }
+.bp:hover { background:var(--dk); border-color:var(--dk); }
+.bg { padding:10px 18px; border:1.5px solid rgba(184,150,12,.32); background:transparent; color:var(--muted); font-family:'Noto Serif TC',serif; font-size:13px; cursor:pointer; border-radius:3px; transition:all .25s; }
+.bg:hover { background:rgba(184,150,12,.09); color:var(--ink); }
+.bdr { padding:6px 12px; border:1.5px solid rgba(180,60,60,.3); background:transparent; color:#b05050; font-family:'Noto Serif TC',serif; font-size:11px; cursor:pointer; border-radius:3px; }
+.bdr:hover { background:rgba(180,60,60,.08); }
+.brow { display:flex; justify-content:flex-end; gap:10px; margin-top:18px; flex-wrap:wrap; }
+.cc { border:1px solid rgba(184,150,12,.22); border-radius:5px; background:rgba(255,255,255,.5); margin-bottom:9px; overflow:hidden; }
+.cc:hover { border-color:rgba(184,150,12,.45); }
+.cc-main { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; }
+.cc-nm { font-size:15px; color:var(--ink); margin-bottom:3px; }
+.cc-sub { font-size:11px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+.dots { display:flex; gap:5px; }
+.dot { width:10px; height:10px; border-radius:50%; background:rgba(184,150,12,.18); border:1px solid rgba(184,150,12,.3); }
+.dot.done { background:var(--g); border-color:var(--g); }
+.dot.cur { background:rgba(184,150,12,.5); border-color:var(--g); }
+.cc-btns { display:flex; align-items:center; gap:8px; }
+.btn-go { padding:7px 14px; border:1.5px solid var(--g); background:transparent; color:var(--g); font-family:'Noto Serif TC',serif; font-size:12px; cursor:pointer; border-radius:3px; }
+.btn-go:hover { background:var(--g); color:white; }
+.confirm-row { display:none; align-items:center; justify-content:space-between; padding:10px 16px; background:rgba(180,60,60,.05); border-top:1px solid rgba(180,60,60,.12); }
+.confirm-row.show { display:flex; }
+.confirm-txt { font-size:12px; color:#a04040; }
+.cfbtns { display:flex; gap:7px; }
+.byes { background:#c05050; border:none; color:white; padding:6px 14px; font-size:11px; cursor:pointer; border-radius:3px; font-family:'Noto Serif TC',serif; }
+.bno { background:transparent; border:1px solid rgba(184,150,12,.3); color:var(--muted); padding:6px 14px; font-size:11px; cursor:pointer; border-radius:3px; font-family:'Noto Serif TC',serif; }
+.tag { display:inline-block; padding:2px 8px; font-size:10px; border-radius:10px; }
+.t0{background:rgba(184,150,12,.1);color:var(--g);} .t1{background:rgba(110,143,175,.12);color:var(--bl);}
+.t2{background:rgba(158,122,142,.12);color:var(--pu);} .t3{background:rgba(122,158,126,.12);color:var(--gr);}
+.empty { text-align:center; padding:36px; color:var(--muted); font-size:13px; line-height:2.2; }
+.chdr { display:flex; align-items:center; justify-content:space-between; padding:10px 0 14px; border-bottom:1px solid rgba(184,150,12,.16); margin-bottom:6px; }
+.cnl { font-size:10px; letter-spacing:.11em; color:var(--g); margin-bottom:3px; }
+.cnv { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--dk); }
+.rail { display:flex; align-items:center; padding:14px 0 20px; }
+.rp { display:flex; align-items:center; gap:6px; padding:6px 13px; border:1.5px solid rgba(184,150,12,.22); border-radius:40px; font-size:11px; color:var(--muted); white-space:nowrap; transition:all .35s; }
+.rp.on { border-color:var(--g); color:var(--ink); }
+.rp.dn { border-color:rgba(184,150,12,.38); }
+.rn { width:18px; height:18px; border-radius:50%; background:rgba(184,150,12,.13); display:flex; align-items:center; justify-content:center; font-size:10px; color:rgba(184,150,12,.45); transition:all .35s; }
+.rp.on .rn { background:var(--g); color:white; }
+.rp.dn .rn { background:rgba(184,150,12,.28); color:var(--g); font-size:9px; }
+.rl { flex:1; height:1.5px; background:rgba(184,150,12,.16); min-width:8px; transition:background .35s; }
+.rl.dn { background:rgba(184,150,12,.42); }
+.dgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+@media(max-width:480px){ .dgrid { grid-template-columns:repeat(2,1fr); } }
+.dc { padding:14px 12px; border:1.5px solid rgba(184,150,12,.2); border-radius:4px; background:rgba(255,255,255,.45); cursor:pointer; transition:all .22s; }
+.dc:hover,.dc.sel { border-color:var(--g); background:rgba(184,150,12,.07); }
+.di { font-size:20px; margin-bottom:5px; }
+.dn2 { font-size:13px; color:var(--ink); margin-bottom:2px; }
+.dh { font-size:10px; color:var(--muted); line-height:1.5; }
+.rc { border:1px solid rgba(184,150,12,.2); border-left:3px solid var(--g); background:rgba(255,255,255,.55); padding:14px 16px; margin-bottom:11px; border-radius:2px; }
+.rt { font-size:14px; color:var(--ink); margin-bottom:9px; }
+ul.li { list-style:none; }
+ul.li li { padding:6px 0; border-bottom:1px solid rgba(184,150,12,.08); font-size:13px; line-height:1.7; display:flex; gap:8px; color:var(--ink); }
+ul.li li:last-child { border-bottom:none; }
+ul.li li::before { content:'◆'; color:var(--g); font-size:7px; margin-top:7px; flex-shrink:0; }
+.dlb { background:linear-gradient(135deg,var(--dk),#3d2515); padding:16px 20px; margin-top:11px; border-radius:3px; }
+.dlt { font-family:'Cormorant Garamond',serif; font-size:16px; color:var(--gl); margin-bottom:10px; font-weight:300; }
+.dli { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:rgba(245,240,232,.88); line-height:2.1; padding-left:12px; border-left:1px solid rgba(184,150,12,.45); margin-bottom:4px; }
+.hc { padding:12px 15px; background:rgba(184,150,12,.06); border:1px solid rgba(184,150,12,.2); border-left:3px solid var(--g); margin-bottom:13px; border-radius:2px; }
+.hl { font-size:9px; letter-spacing:.15em; color:var(--g); margin-bottom:4px; text-transform:uppercase; }
+.ht { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--ink); line-height:1.65; }
+.nb { border:1px dashed rgba(184,150,12,.25); padding:12px 14px; margin-bottom:13px; border-radius:3px; background:rgba(255,255,255,.25); }
+.dv { height:1px; background:linear-gradient(to right,transparent,rgba(184,150,12,.22),transparent); margin:18px 0; }
+.lyrs { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+.lyr { padding:5px 13px; border-radius:3px; font-size:12px; cursor:pointer; user-select:none; transition:all .2s; border:1px solid; }
+.step { display:flex; gap:14px; padding:12px 14px; margin-bottom:8px; border-left:2px solid rgba(184,150,12,.18); background:rgba(255,255,255,.4); }
+.step.hi { border-left-color:var(--pu); background:rgba(255,255,255,.65); }
+.snum { font-family:'Cormorant Garamond',serif; font-size:22px; color:rgba(184,150,12,.35); min-width:22px; line-height:1; font-weight:300; }
+.sbody h4 { font-size:13px; margin-bottom:3px; color:var(--ink); }
+.sbody p { font-size:12px; color:var(--muted); line-height:1.7; }
+.sq { font-family:'Cormorant Garamond',serif; font-size:14px; font-style:italic; color:var(--g); margin-top:4px; }
+.stags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; }
+.stag { padding:3px 11px; font-size:11px; border-radius:30px; background:rgba(184,150,12,.07); border:1px solid rgba(184,150,12,.2); color:var(--muted); }
+.loading { text-align:center; padding:40px 20px; }
+.spin { font-family:'Cormorant Garamond',serif; font-size:44px; color:var(--g); display:block; margin-bottom:12px; animation:spin 2.5s linear infinite; }
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+.loading p { font-size:13px; letter-spacing:.1em; color:var(--g); }
+.ptitle { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:300; color:var(--dk); margin-bottom:6px; }
+.pdesc { font-size:12px; color:var(--muted); line-height:1.85; margin-bottom:16px; }
+.pw-screen { max-width:420px; margin:40px auto; padding:32px 28px; border:1px solid rgba(184,150,12,.25); border-radius:6px; background:rgba(255,255,255,.6); text-align:center; }
+.pw-screen h2 { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--dk); margin-bottom:8px; }
+.pw-screen p { font-size:12px; color:var(--muted); line-height:1.8; margin-bottom:18px; }
+.pw-err { color:#c05050; font-size:12px; margin-top:8px; display:none; }
+.sep { height:1px; background:rgba(184,150,12,.15); margin:18px 0; }
+.section-label { font-size:11px; letter-spacing:.13em; text-transform:uppercase; margin:16px 0 8px; padding:4px 0; border-bottom:1px solid rgba(184,150,12,.15); }
+@media(max-width:600px){ header h1{font-size:20px;} .rp span.rp-txt{display:none;} .wrap{padding:0 14px 80px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="logo">✦</span>
+  <h1>Inez Healing Studio</h1>
+  <p>ThetaHealing · 三階段漸進式信念清理工具</p>
+</header>
+
+<div id="pw-screen" style="display:none">
+  <div class="pw-screen">
+    <span class="logo" style="font-size:28px;margin-bottom:10px">✦</span>
+    <h2>Inez Healing Studio</h2>
+    <p id="pw-desc" style="margin-bottom:18px">請輸入你的姓名進入療癒系統<br><span style="font-size:11px;color:var(--g)">第一次使用會自動建立你的記錄</span></p>
+    <input type="text" id="pw-name" placeholder="你的姓名" style="margin-bottom:10px" onkeydown="if(event.key==='Enter')checkPW()">
+    <input type="password" id="pw-input" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')checkPW()">
+    <button class="bp" style="width:100%;margin-top:10px" onclick="checkPW()">進入系統</button>
+    <div id="pw-err" class="pw-err">請確認姓名和密碼都有填寫，或密碼錯誤</div>
+  </div>
+</div>
+
+<div id="main-app" style="display:none">
+  <div class="tabs">
+    <div class="tab on" id="tc" onclick="goTab('c')" style="display:none">個案管理</div>
+    <div class="tab" id="th" onclick="if(CUR)goTab('h')">療癒進行中</div>
+  </div>
+
+  <div class="pg on" id="pg-c">
+    <div class="lbl">新增個案</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <input type="text" id="nm" placeholder="輸入個案姓名或代號" onkeydown="if(event.key==='Enter')addC()">
+      <button class="bp" onclick="addC()">新增</button>
+    </div>
+    <div class="sep"></div>
+    <div id="cl"></div>
+  </div>
+
+  <div class="pg" id="pg-h">
+    <div class="chdr">
+      <div><div class="cnl">目前個案</div><div class="cnv" id="cnv">—</div></div>
+      <div id="back-btn-wrap"></div>
+    </div>
+    <div class="rail">
+      <div class="rp on" id="rp1"><span class="rn">1</span><span class="rp-txt">大方向掃描</span></div>
+      <div class="rl" id="rl1"></div>
+      <div class="rp" id="rp2"><span class="rn">2</span><span class="rp-txt">深化聚焦</span></div>
+      <div class="rl" id="rl2"></div>
+      <div class="rp" id="rp3"><span class="rn">3</span><span class="rp-txt">精細清理</span></div>
+    </div>
+    <div id="sub"></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ══ Supabase ══
+const SUPA_URL='https://pyvkydbaiwtjvqqvqsin.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5dmt5ZGJhaXd0anZxcXZxc2luIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjUxMzIsImV4cCI6MjA5MDU0MTEzMn0.uttTg041PM8In_CS2Lz3xfbgQ2xX7fn8v326Dlidjas';
+
+async function supaFetch(path,method='GET',body=null){
+  const opts={method,headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':method==='POST'?'return=representation':''}};
+  if(body) opts.body=JSON.stringify(body);
+  const res=await fetch(SUPA_URL+'/rest/v1/'+path,opts);
+  if(!res.ok){const e=await res.text();throw new Error(e);}
+  const txt=await res.text();
+  return txt?JSON.parse(txt):null;
+}
+
+// ══ 本地存儲 ══
+const DB={
+  g(k){try{const v=localStorage.getItem('theta_'+k);return v?JSON.parse(v):null;}catch{return null;}},
+  s(k,v){try{localStorage.setItem('theta_'+k,JSON.stringify(v));}catch{}},
+  d(k){try{localStorage.removeItem('theta_'+k);}catch{}},
+};
+const gList=()=>DB.g('cases')||[];
+const sList=l=>DB.s('cases',l);
+
+async function loadCasesFromCloud(){
+  try{const data=await supaFetch('cases?select=id,name,progress,updated&order=updated.desc');if(data&&data.length){sList(data);return data;}}catch(e){console.log('雲端載入失敗',e);}
+  return gList();
+}
+async function saveCaseToCloud(c){
+  try{await supaFetch('cases?id=eq.'+c.id,'DELETE');await supaFetch('cases','POST',c);}catch(e){console.log('雲端儲存失敗',e);}
+}
+async function loadCaseFromCloud(id){
+  try{
+    const data=await supaFetch('cases?id=eq.'+id+'&select=*');
+    if(data&&data.length){
+      const c=data[0];
+      if(typeof c.records==='string') try{c.records=JSON.parse(c.records);}catch(e){c.records=[];}
+      if(typeof c.rounds==='string') try{c.rounds=JSON.parse(c.rounds);}catch(e){c.rounds=[];}
+      if(!c.records)c.records=[];
+      if(!c.rounds)c.rounds=[];
+      DB.s('case_'+id,c);
+      return c;
+    }
+  }catch(e){}
+  return DB.g('case_'+id);
+}
+
+
+// ══ 靈性食療知識庫 ══
+const MEDICAL_MEDIUM = '醫療靈媒身體對應知識（Anthony William觀點）：情緒與器官關係：憤怒→肝臟（肝臟儲存憤怒，長期壓抑導致肝氣鬱結、偏頭痛、眼睛問題）；恐懼→腎臟（腎上腺素過度分泌，導致腎虛、慢性疲勞、腰痠）；悲傷→肺（肺氣虛弱，導致呼吸問題、皮膚乾燥、易感冒）；焦慮→胃腸（消化系統敏感，胃痛、腸躁、脹氣）；委屈/壓抑→頸肩（氣血不通，肩頸僵硬、頭痛）；不安全感→免疫系統（自體免疫問題、過敏）；自我批判→心臟（心血管壓力、胸悶）；過度付出→腎上腺（腎上腺疲勞、慢性疲勞症候群）。請根據個案情緒信念，選出最相關的2點具體分析。';
+
+const SPIRITUAL_FOOD = '食物靈性對應表（請根據個案信念主題選2-3種推薦）：' +
+  '【自信/自我價值】胡蘿蔔（橘色能量帶來自信）、薑黃（增強自我力量）、南瓜（穩固根基）' +
+  '【界限/保護自己】羽衣甘藍（強化個人界限）、大蒜（驅散負能量）、洋蔥（剝除不屬於自己的信念）' +
+  '【愛與關係】酪梨（帶來如母親般的滋養）、草莓（開心臟帶來愛的流動）、玫瑰果茶（軟化心防接受愛）' +
+  '【豐盛/金錢】葡萄（豐盛果實）、無花果（甜蜜豐盛能量）、蜂蜜（吸引甜美生命體驗）' +
+  '【恐懼/安全感】馬鈴薯（接地帶來穩定）、番薯（溫暖根部能量）、燕麥（穩定情緒波動）' +
+  '【逃避/前進】野生藍莓（從灰燼中重生的力量）、蘋果（困難時的撫慰）、西洋芹汁（清除阻礙）' +
+  '【信任/控制】香蕉（放下控制讓身體放鬆）、木瓜（消化未消化的情緒）、薑（建立信任感）' +
+  '【創傷/情緒釋放】石榴（溶解情緒結石）、覆盆子（溫柔療癒）、檸檬（淨化讓情緒重新流動）';
+
+// ══ API Key ══
+function getAK(){
+  // 每次都重新組合，不用 localStorage 快取
+  return 'sk-ant-api03-y53jAEBvxYvaKtgwjgNyi78SQA3-yfCPp5Myc3-4bw2VOnj5jXiHyBEXqG5Loin'+'cTglinktvy5BOxWFGvBSkyg-0kNHlwAA';
+}
+
+async function callAI(prompt){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':getAK(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2000,messages:[{role:'user',content:prompt}]})
+  });
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||'HTTP '+res.status);}
+  const data=await res.json();
+  const txt=data.content.map(b=>b.text||'').join('');
+  const clean=txt.replace(/```json[\s\S]*?```|```[\s\S]*?```/g,s=>s.replace(/```json|```/g,'')).replace(/```json|```/g,'').trim();
+  const m=clean.match(/\{[\s\S]*\}/);
+  const raw=m?m[0]:clean;
+  // 容錯：移除陣列中常見的格式錯誤（換行導致的逗號問題）
+  const fixed=raw
+    .replace(/,\s*([\]}])/g,'$1')      // 移除尾端多餘逗號
+    .replace(/(["\d}])\s*\n\s*"/g,'$1,"')  // 補漏掉的逗號（字串元素）
+    .replace(/\n/g,' ');               // 展平換行
+  try{return JSON.parse(fixed);}
+  catch(e1){
+    // 第二次嘗試：用更保守的 regex 提取每個陣列並修復
+    try{return JSON.parse(raw.replace(/\n/g,' ').replace(/,\s*([\]}])/g,'$1'));}
+    catch(e2){throw new Error('JSON解析失敗，請重試');}
+  }
+}
+
+// ══ 狀態 ══
+let CUR=null,SUB='s1',DOMAIN=null,PEND_DEL=null,TMP={},SEL_LAYERS=[],ROLE='client';
+
+// ══ 密碼 ══
+const CLIENT_PW='healing';
+const ADMIN_PW='inez-admin';
+
+function checkPW(){
+  const pw=document.getElementById('pw-input').value.trim();
+  const name=document.getElementById('pw-name').value.trim();
+  const err=document.getElementById('pw-err');
+  err.style.display='none';
+  if(pw===ADMIN_PW){
+    ROLE='admin';sessionStorage.setItem('role','admin');
+    showApp(true,'');
+  } else if(pw===CLIENT_PW){
+    if(!name){err.style.display='block';return;}
+    ROLE='client';sessionStorage.setItem('role','client');
+    showApp(false,name);
+  } else {
+    err.style.display='block';
+  }
+}
+
+function showApp(isAdmin,clientName){
+  document.getElementById('pw-screen').style.display='none';
+  document.getElementById('main-app').style.display='block';
+  if(isAdmin){
+    document.getElementById('tc').style.display='';
+    // 顯示個案列表按鈕
+    document.getElementById('back-btn-wrap').innerHTML='<button class="bg" onclick="goTab(\'c\')" style="font-size:11px;padding:7px 12px">← 個案列表</button>';
+    goTab('c');
+  } else {
+    document.getElementById('tc').style.display='none';
+    document.getElementById('back-btn-wrap').innerHTML='';
+    loadOrCreateClient(clientName);
+  }
+}
+
+// ══ 載入或建立個案 ══
+async function loadOrCreateClient(name){
+  const trimName = name.trim();
+
+  // 先從雲端用 ilike 不分大小寫查找
+  try{
+    const data = await supaFetch('cases?name=ilike.'+encodeURIComponent(trimName)+'&select=*');
+    if(data && data.length > 0){
+      CUR = data[0];
+      // Supabase 有時回傳 JSON 欄位為字串，確保 parse
+      if(typeof CUR.records==='string') try{CUR.records=JSON.parse(CUR.records);}catch(e){CUR.records=[];}
+      if(typeof CUR.rounds==='string') try{CUR.rounds=JSON.parse(CUR.rounds);}catch(e){CUR.rounds=[];}
+      if(!CUR.records)CUR.records=[];
+      if(!CUR.rounds)CUR.rounds=[];
+      if(CUR.rounds.length===0&&CUR.records&&CUR.records.length>0)CUR.rounds=[CUR.records];
+      if(CUR.rounds.length===0)CUR.rounds.push([]);
+      DB.s('case_'+CUR.id, CUR);
+      const l=gList();
+      if(!l.find(c=>c.id===CUR.id)){
+        l.unshift({id:CUR.id,name:CUR.name,progress:CUR.progress||0,updated:CUR.updated});
+        sList(l);
+      }
+      document.getElementById('cnv').textContent=CUR.name;
+      DOMAIN=null;TMP={};SEL_LAYERS=[];
+      goTab('h');
+      showClientProgress();
+      return;
+    }
+  }catch(e){console.log('雲端查找失敗，嘗試本地',e);}
+
+  // 再從 localStorage 找（離線備援）
+  const localList = gList();
+  const localMatch = localList.find(c=>c.name&&c.name.toLowerCase()===trimName.toLowerCase());
+  if(localMatch){
+    const localCase = DB.g('case_'+localMatch.id);
+    if(localCase){
+      CUR = localCase;
+      if(!CUR.rounds)CUR.rounds=[];
+      if(CUR.rounds.length===0&&CUR.records&&CUR.records.length>0)CUR.rounds=[CUR.records];
+      document.getElementById('cnv').textContent=CUR.name;
+      DOMAIN=null;TMP={};SEL_LAYERS=[];
+      goTab('h');showClientProgress();
+      return;
+    }
+  }
+
+  // 真的沒有，才建立新個案
+  const id='c'+Date.now();
+  CUR={id,name:trimName,progress:0,updated:new Date().toISOString(),records:[],rounds:[[]]};
+  DB.s('case_'+id,CUR);
+  const l=gList();l.unshift({id,name:trimName,progress:0,updated:CUR.updated});sList(l);
+  await saveCaseToCloud(CUR).catch(e=>console.log(e));
+  document.getElementById('cnv').textContent=trimName;
+  DOMAIN=null;TMP={};SEL_LAYERS=[];
+  goTab('h');showClientProgress();
+}
+
+// ══ 個案主頁：所有輪次列表 ══
+function showClientProgress(){
+  if(!CUR){goClientList();return;}
+  const el=document.getElementById('sub');
+  const allRounds = CUR.rounds||[];
+  const p=CUR.progress||0;
+
+  // 計算當前輪是第幾輪（allRounds 最後一個）
+  const curRoundIdx = allRounds.length > 0 ? allRounds.length-1 : 0;
+  const totalRounds = allRounds.length||1;
+
+  // 更新 rail 為當前輪進度
+  setRail(p===0?1:p===1?2:p===2?3:3);
+
+  let roundsHtml='';
+
+  // 歷史輪次（排除最後一輪）
+  const historyRounds = allRounds.slice(0, curRoundIdx);
+  historyRounds.forEach(function(recs, ri){
+    const rn = ri+1;
+    const r1 = recs&&recs[0]||{};
+    const cnt = recs?recs.filter(r=>r&&(r.aiResult||r.feel||r.body)).length:0;
+    roundsHtml+='<div style="border:1px solid rgba(184,150,12,.2);border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,.35)">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+      +'<div>'
+      +'<div style="font-size:13px;color:var(--ink);margin-bottom:3px">第 '+rn+' 輪療癒'+(r1.domain?' ｜ '+r1.domain+' 領域':'')+'</div>'
+      +'<div style="font-size:11px;color:var(--muted)">已完成 '+cnt+' 次 ✓</div>'
+      +'</div>'
+      +'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewRound('+ri+')">查看記錄</button>'
+      +'</div></div>';
+  });
+
+  // 當前進行中的輪次
+  const s1done=p>=1, s1active=p===0;
+  const s2done=p>=2, s2active=p===1;
+  const s3done=p>=3, s3active=p===2;
+  const allDone=p>=3;
+
+  let curItems='';
+  curItems+='<div style="border:1px solid rgba(184,150,12,'+(s1done?'.4':'.25')+');border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,'+(s1done?'.6':'.45')+');">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:14px;color:var(--ink);margin-bottom:3px">第一次｜大方向掃描</div>'
+    +'<div style="font-size:11px;color:var(--muted)">'+(s1done?'已完成 ✓':'尚未開始')+'</div></div>'
+    +(s1active?'<button class="bp" style="font-size:12px;padding:7px 16px" onclick="startSession(1)">開始 →</button>':'')
+    +(s1done?'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewSession(1)">查看</button>':'')
+    +'</div></div>';
+
+  curItems+='<div style="border:1px solid rgba(184,150,12,'+(s2done?'.4':s2active?'.3':'.15')+');border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,'+(s2done?'.6':s2active?'.45':'.25')+');opacity:'+(p<1?'0.45':'1')+'">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:14px;color:var(--ink);margin-bottom:3px">第二次｜深化聚焦</div>'
+    +'<div style="font-size:11px;color:var(--muted)">'+(s2done?'已完成 ✓':s2active?'可以開始':'需先完成第一次')+'</div></div>'
+    +(s2active?'<button class="bp" style="font-size:12px;padding:7px 16px" onclick="startSession(2)">開始 →</button>':'')
+    +(s2done?'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewSession(2)">查看</button>':'')
+    +'</div></div>';
+
+  curItems+='<div style="border:1px solid rgba(184,150,12,'+(s3done?'.4':s3active?'.3':'.15')+');border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,'+(s3done?'.6':s3active?'.45':'.25')+');opacity:'+(p<2?'0.45':'1')+'">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:14px;color:var(--ink);margin-bottom:3px">第三次｜精細清理</div>'
+    +'<div style="font-size:11px;color:var(--muted)">'+(s3done?'已完成 ✓':s3active?'可以開始':'需先完成第二次')+'</div></div>'
+    +(s3active?'<button class="bp" style="font-size:12px;padding:7px 16px" onclick="startSession(3)">開始 →</button>':'')
+    +(s3done?'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewSession(3)">查看</button>':'')
+    +'</div></div>';
+
+  // 當前輪標題
+  const curRoundLabel = '第 '+totalRounds+' 輪療癒';
+  const curBlock='<div style="margin-bottom:6px">'
+    +'<div style="font-size:10px;letter-spacing:.13em;color:var(--g);text-transform:uppercase;margin-bottom:10px">✦ '+curRoundLabel+'（進行中）</div>'
+    +curItems
+    +(allDone
+      ? '<div style="margin-top:16px;text-align:center">'
+        +'<button class="bp" style="font-size:13px;padding:10px 28px" onclick="startNewRound()">＋ 新增新一輪療癒</button>'
+        +'</div>'
+      : '')
+    +'</div>';
+
+  // 歷史標題（有的話）
+  const historyBlock = roundsHtml
+    ? '<div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(184,150,12,.15)">'
+      +'<div style="font-size:10px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">歷史療癒記錄</div>'
+      +roundsHtml+'</div>'
+    : '';
+
+  el.innerHTML='<div>'
+    +curBlock
+    +historyBlock
+    +'</div>';
+}
+
+// 查看歷史輪的結果（唯讀）
+function viewRound(ri){
+  const recs=(CUR.rounds||[])[ri]||[];
+  const el=document.getElementById('sub');
+  const rn=ri+1;
+  let html='<div style="margin-bottom:16px;display:flex;align-items:center;gap:12px">'
+    +'<button class="bg" style="font-size:11px;padding:6px 12px" onclick="goClientList()">← 返回進度列表</button>'
+    +'<span style="font-size:12px;color:var(--muted)">第 '+rn+' 輪歷史記錄</span>'
+    +'</div>';
+  [0,1,2].forEach(function(i){
+    const rec=recs[i];
+    if(!rec||!rec.aiResult)return;
+    const labels=['第一次｜大方向掃描','第二次｜深化聚焦','第三次｜精細清理'];
+    const colors=['#7a9e7e','#6e8faf','#9e7a8e'];
+    html+='<div style="border:1px solid rgba(184,150,12,.22);border-radius:5px;padding:16px;margin-bottom:10px;background:rgba(255,255,255,.5)">'
+      +'<div style="font-size:10px;letter-spacing:.12em;color:'+colors[i]+';margin-bottom:8px;text-transform:uppercase">✦ '+labels[i]+'</div>';
+    if(i===0&&rec.domain) html+='<div style="font-size:12px;color:var(--muted);margin-bottom:6px">領域：'+rec.domain+'</div>';
+    if(rec.feel) html+='<div style="font-size:12px;color:var(--ink);margin-bottom:10px">「'+rec.feel.slice(0,60)+(rec.feel.length>60?'…':'')+'」</div>';
+    const r=rec.aiResult;
+    if(r){
+      if(i===0&&r.表層信念&&r.表層信念.length) html+=mkCard('表層信念',r.表層信念);
+      if(i===1&&r.深層信念&&r.深層信念.length) html+=mkCard('深層信念',r.深層信念);
+      if(i===2&&r.清理步驟&&r.清理步驟.length){
+        html+='<div class="rc"><div class="rt">清理流程</div>';
+        r.清理步驟.slice(0,3).forEach(function(s,si){html+='<div style="font-size:12px;color:var(--ink);padding:4px 0;border-bottom:1px solid rgba(184,150,12,.08)">'+s.步驟名稱+'</div>';});
+        html+='</div>';
+      }
+      if(r.下載清單&&r.下載清單.length) html+=mkDL(r.下載清單);
+      if(r.飲食建議&&r.飲食建議.length) html+='<div class="rc" style="margin-top:8px"><div class="rt">🌿 飲食建議</div>'+mkUL(r.飲食建議)+'</div>';
+    }
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+function startNewRound(){
+  // 封存當前輪（已在 rounds 裡），開新輪
+  if(!CUR.rounds)CUR.rounds=[];
+  CUR.rounds.push([]); // 新的空輪
+  CUR.progress=0;
+  CUR.records=[];
+  CUR.updated=new Date().toISOString();
+  DB.s('case_'+CUR.id,CUR);
+  saveCaseToCloud(CUR).catch(e=>console.log(e));
+  DOMAIN=null;TMP={};SEL_LAYERS=[];
+  showClientProgress();
+}
+
+function startSession(n){
+  DOMAIN=null;TMP={};SEL_LAYERS=[];
+  if(n===1){SUB='s1';setRail(1);}
+  else if(n===2){SUB='s2';setRail(2);}
+  else if(n===3){SUB='s3';setRail(3);}
+  rSub();
+}
+
+async function viewSession(n){
+  DOMAIN=null;TMP={};SEL_LAYERS=[];
+  // 確保 records 已載入（從雲端補回）
+  const recs=CUR.records||[];
+  const needFetch=(n===1&&!recs[0]?.aiResult)||(n===2&&!recs[1]?.aiResult)||(n===3&&!recs[2]?.aiResult);
+  if(needFetch){
+    try{
+      const to=new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),5000));
+      const fresh=await Promise.race([loadCaseFromCloud(CUR.id),to]);
+      if(fresh&&fresh.records){
+        CUR.records=fresh.records;
+        if(!CUR.rounds)CUR.rounds=[];
+        if(CUR.rounds.length===0&&fresh.records.length>0)CUR.rounds=[fresh.records];
+      }
+    }catch(e){console.log('補載失敗，用現有資料',e);}
+  }
+  if(n===1){SUB='s1r';setRail(1);}
+  else if(n===2){SUB='s2r';setRail(2);}
+  else if(n===3){SUB='s3r';setRail(3);}
+  rSub();
+}
+
+function goClientList(){
+  if(!CUR){
+    // CUR 不存在，回到登入畫面
+    document.getElementById('pw-screen').style.display='block';
+    document.getElementById('main-app').style.display='none';
+    return;
+  }
+  if(ROLE==='admin'){
+    showAdminProgress();
+  } else {
+    showClientProgress();
+  }
+}
+
+// ══ 頁籤 ══
+function goTab(t){
+  ['c','h'].forEach(x=>{
+    const el=document.getElementById('t'+x);if(el)el.classList.toggle('on',x===t);
+    const pg=document.getElementById('pg-'+x);if(pg)pg.classList.toggle('on',x===t);
+  });
+  if(t==='c')asyncRList();
+}
+
+// ══ 個案管理 ══
+async function addC(){
+  const nm=document.getElementById('nm').value.trim();if(!nm)return;
+  const id='c'+Date.now();
+  const c={id,name:nm,progress:0,updated:new Date().toISOString(),records:[],rounds:[]};
+  const l=gList();l.unshift({id,name:nm,progress:0,updated:c.updated});sList(l);
+  DB.s('case_'+id,c);
+  document.getElementById('nm').value='';
+  await saveCaseToCloud(c);
+  asyncRList();
+}
+function askDel(id){PEND_DEL=PEND_DEL===id?null:id;rList();}
+function cancelDel(){PEND_DEL=null;rList();}
+async function confirmDel(id){
+  DB.d('case_'+id);sList(gList().filter(c=>c.id!==id));PEND_DEL=null;
+  try{await supaFetch('cases?id=eq.'+id,'DELETE');}catch(e){}
+  rList();
+}
+async function openC(id){
+  CUR=await loadCaseFromCloud(id)||DB.g('case_'+id);
+  if(!CUR)return;
+  if(!CUR.rounds)CUR.rounds=[];
+  // 相容舊資料：若 rounds 是空的但 records 有資料，把它塞進去
+  if(CUR.rounds.length===0&&CUR.records&&CUR.records.length>0)CUR.rounds=[CUR.records];
+  document.getElementById('cnv').textContent=CUR.name;
+  DOMAIN=null;TMP={};SEL_LAYERS=[];
+  const p=CUR.progress||0;
+  // Admin 進入個案：直接顯示進度列表，從列表選擇操作
+  goTab('h');
+  setRail(p===0?1:p<=1?1:p<=2?2:3);
+  showAdminProgress();
+}
+
+// Admin 個案進度列表
+function showAdminProgress(){
+  if(!CUR){goTab('c');return;}
+  const el=document.getElementById('sub');
+  const p=CUR.progress||0;
+  const s1done=p>=1,s2done=p>=2,s3done=p>=3;
+
+  let items='';
+  // 第一次
+  items+='<div style="border:1px solid rgba(184,150,12,'+(s1done?'.4':'.25')+');border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,'+(s1done?'.6':'.45')+');">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:14px;color:var(--ink);margin-bottom:3px">第一次｜大方向掃描</div>'
+    +'<div style="font-size:11px;color:var(--muted)">'+(s1done?'已完成 ✓':'尚未開始')+'</div></div>'
+    +'<div style="display:flex;gap:8px">'
+    +(!s1done?'<button class="bp" style="font-size:12px;padding:7px 14px" onclick="startSession(1)">開始 →</button>':'')
+    +(s1done?'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewSession(1)">查看</button>':'')
+    +(s1done&&!s2done?'<button class="bp" style="font-size:12px;padding:7px 14px" onclick="startSession(2)">繼續第二次 →</button>':'')
+    +'</div></div></div>';
+
+  // 第二次
+  items+='<div style="border:1px solid rgba(184,150,12,'+(s2done?'.4':p>=1?'.3':'.15')+');border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,'+(s2done?'.6':p>=1?'.45':'.25')+');opacity:'+(p<1?'0.45':'1')+'">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:14px;color:var(--ink);margin-bottom:3px">第二次｜深化聚焦</div>'
+    +'<div style="font-size:11px;color:var(--muted)">'+(s2done?'已完成 ✓':p>=1?'可以開始':'需先完成第一次')+'</div></div>'
+    +'<div style="display:flex;gap:8px">'
+    +(s2done?'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewSession(2)">查看</button>':'')
+    +(s2done&&!s3done?'<button class="bp" style="font-size:12px;padding:7px 14px" onclick="startSession(3)">繼續第三次 →</button>':'')
+    +'</div></div></div>';
+
+  // 第三次
+  items+='<div style="border:1px solid rgba(184,150,12,'+(s3done?'.4':p>=2?'.3':'.15')+');border-radius:5px;padding:14px 18px;margin-bottom:8px;background:rgba(255,255,255,'+(s3done?'.6':p>=2?'.45':'.25')+');opacity:'+(p<2?'0.45':'1')+'">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:14px;color:var(--ink);margin-bottom:3px">第三次｜精細清理</div>'
+    +'<div style="font-size:11px;color:var(--muted)">'+(s3done?'已完成 ✓':p>=2?'可以開始':'需先完成第二次')+'</div></div>'
+    +'<div style="display:flex;gap:8px">'
+    +(s3done?'<button class="bg" style="font-size:11px;padding:5px 12px" onclick="viewSession(3)">查看</button>':'')
+    +'</div></div></div>';
+
+  el.innerHTML='<div>'
+    +'<div style="font-size:11px;letter-spacing:.12em;color:var(--g);text-transform:uppercase;margin-bottom:12px">✦ 療癒進度</div>'
+    +items+'</div>';
+}
+async function asyncRList(){
+  const el=document.getElementById('cl');
+  if(el)el.innerHTML='<div class="empty">載入中...</div>';
+  const l=await loadCasesFromCloud();
+  renderList(l);
+}
+function rList(){renderList(gList());}
+function renderList(l){
+  const el=document.getElementById('cl');
+  if(!l||!l.length){el.innerHTML='<div class="empty">✦<br>還沒有個案<br>在上方輸入姓名開始記錄</div>';return;}
+  const tl=['未開始','第一次完成','第二次完成','療癒完成'];
+  el.innerHTML=l.map(c=>{
+    const p=c.progress||0;
+    const d=c.updated?new Date(c.updated).toLocaleDateString('zh-TW'):'';
+    const dots=[0,1,2].map(i=>'<div class="dot '+(i<p?'done':i===p&&p<3?'cur':'')+'"></div>').join('');
+    const asking=PEND_DEL===c.id;
+    return '<div class="cc"><div class="cc-main"><div><div class="cc-nm">'+c.name+'</div><div class="cc-sub"><span class="tag t'+p+'">'+tl[p]+'</span>'+d+'</div></div><div class="cc-btns"><div class="dots">'+dots+'</div><button class="btn-go" onclick="openC(\''+c.id+'\')">進入療癒</button><button class="bdr" onclick="askDel(\''+c.id+'\')">'+(asking?'取消':'刪除')+'</button></div></div><div class="confirm-row '+(asking?'show':'')+'"><span class="confirm-txt">確定刪除「'+c.name+'」的所有記錄？</span><div class="cfbtns"><button class="bno" onclick="cancelDel()">取消</button><button class="byes" onclick="confirmDel(\''+c.id+'\')">確定刪除</button></div></div></div>';
+  }).join('');
+}
+
+// ══ Rail ══
+function setRail(a){
+  [1,2,3].forEach(n=>{
+    const el=document.getElementById('rp'+n);
+    el.classList.remove('on','dn');
+    if(n<a){el.classList.add('dn');el.querySelector('.rn').textContent='✓';}
+    else if(n===a)el.classList.add('on');
+  });
+  [1,2].forEach(n=>document.getElementById('rl'+n).classList.toggle('dn',n<a));
+}
+
+// ══ 儲存進度 ══
+function saveProg(p,records){
+  CUR.progress=p;CUR.updated=new Date().toISOString();CUR.records=records;
+  // 同步寫入 rounds（當前輪 = 最後一輪）
+  if(!CUR.rounds)CUR.rounds=[];
+  if(CUR.rounds.length===0)CUR.rounds.push([]);
+  CUR.rounds[CUR.rounds.length-1]=records;
+  DB.s('case_'+CUR.id,CUR);
+  sList(gList().map(c=>c.id===CUR.id?{...c,progress:p,updated:CUR.updated}:c));
+  saveCaseToCloud(CUR).catch(e=>console.log(e));
+}
+
+// ══ 工具 ══
+const gv=id=>{const e=document.getElementById(id);return e?e.value:'';};
+const mkUL=items=>'<ul class="li">'+items.map(t=>'<li>'+t+'</li>').join('')+'</ul>';
+const mkDL=items=>'<div class="dlb"><div class="dlt">✦ 靈性處方簽｜建議下載的新信念</div>'+items.map(d=>'<div class="dli">「我知道'+d+'的感覺是什麼」</div>').join('')+'</div>';
+const mkCard=(t,items)=>'<div class="rc"><div class="rt">'+t+'</div>'+mkUL(items)+'</div>';
+const mkHint=(l,t)=>'<div class="hc"><div class="hl">'+l+'</div><div class="ht">'+t+'</div></div>';
+const mkBadge=(c,t)=>'<span style="display:inline-flex;align-items:center;padding:3px 12px;border-radius:30px;font-size:10px;letter-spacing:.12em;background:'+c+'22;color:'+c+';border:1px solid '+c+'44;margin-bottom:12px">'+t+'</span>';
+
+// 身體呈現區塊
+const mkBodyBlock = (items) => {
+  if(!items||!items.length) return '';
+  let html='<div class="rc" style="margin-bottom:11px;border-left-color:#6e8faf">'
+    +'<div class="rt">🫀 身體可能的呈現（醫療靈媒觀點）</div>';
+  items.forEach(function(b){
+    html+='<div style="padding:8px 0;border-bottom:1px solid rgba(184,150,12,.08);display:flex;gap:10px;align-items:flex-start">'
+      +'<span style="background:rgba(110,143,175,.12);color:#6e8faf;font-size:10px;padding:2px 8px;border-radius:10px;white-space:nowrap;margin-top:2px">'+b.器官+'</span>'
+      +'<span style="font-size:12px;color:var(--muted);line-height:1.7">'+b.說明+'</span>'
+      +'</div>';
+  });
+  html+='</div>';
+  return html;
+};
+const mkSecLabel=(c,t)=>'<div class="section-label" style="color:'+c+';border-bottom-color:'+c+'33">✦ '+t+'</div>';
+
+const DOMS=[
+  {k:'健康',i:'🌿',h:'身體症狀、體力、睡眠'},
+  {k:'關係',i:'🌸',h:'伴侶、家人、重複模式'},
+  {k:'金錢豐盛',i:'✨',h:'財務、匱乏感、配得感'},
+  {k:'事業使命',i:'🌱',h:'工作、天賦、自我實現'},
+  {k:'自我價值',i:'💎',h:'自信、自愛、夠不夠好'},
+  {k:'靈性成長',i:'🌙',h:'靈魂目的、源頭連結'},
+];
+const LYRS=[
+  ['核心層（對自己的基本看法）','#9e7a8e'],
+  ['遺傳層（來自家族的傳承）','#6e8faf'],
+  ['歷史層（來自過去世或集體）','#7a9e7e'],
+  ['靈魂層（靈魂層面的功課）','#b8960c'],
+];
+
+function tgLyr(l){
+  SEL_LAYERS=SEL_LAYERS.includes(l)?SEL_LAYERS.filter(x=>x!==l):[...SEL_LAYERS,l];
+  rSub();
+}
+
+// ══ 渲染 ══
+function selectBelief(el){
+  document.getElementById('f3b').value=el.textContent;
+  document.querySelectorAll('.belief-tag').forEach(function(t){t.style.background='rgba(255,255,255,.5)';t.style.borderColor='rgba(184,150,12,.35)';});
+  el.style.background='rgba(184,150,12,.15)';el.style.borderColor='var(--g)';
+}
+
+function rSub(){
+  const el=document.getElementById('sub');
+  const isAdmin=ROLE==='admin';
+
+  if(SUB==='s1'){
+    setRail(1);
+    let dc='';
+    DOMS.forEach(d=>{dc+='<div class="dc'+(DOMAIN===d.k?' sel':'')+'" onclick="DOMAIN=\''+d.k+'\';rSub()"><div class="di">'+d.i+'</div><div class="dn2">'+d.k+'</div><div class="dh">'+d.h+'</div></div>';});
+    el.innerHTML=mkBadge('#7a9e7e','✦ 第一次療癒')
+      +'<div class="ptitle">選擇今天想清理的生命領域</div>'
+      +'<div class="pdesc">讓個案靜下來感受現在最有重量的議題，跟著第一個浮現的感覺走。</div>'
+      +'<div class="dgrid">'+dc+'</div>'
+      +'<div class="lbl">這個領域現在最讓你困擾的是什麼？</div>'
+      +'<textarea id="f1f" rows="3" placeholder="用自己的話說，不用整理得很完整…">'+(TMP.feel||'')+'</textarea>'
+      +'<div class="lbl" style="margin-top:12px">這個狀況多久了？最早是什麼時候？（選填）</div>'
+      +'<textarea id="f1o" rows="2" placeholder="例：從小家裡就常常為錢吵架…">'+(TMP.origin||'')+'</textarea>'
+      +'<div class="brow"><button class="bp" onclick="doAI1()">✦ AI 分析信念 →</button></div>';
+  }
+
+  else if(SUB==='s1l'){
+    setRail(1);
+    el.innerHTML='<div class="loading"><span class="spin">✦</span><p>正在根據你說的話分析信念...</p></div>';
+  }
+
+  else if(SUB==='s1r'){
+    setRail(1);
+    const r=TMP.r1||CUR.records[0]?.aiResult;
+    if(!r){SUB='s1';rSub();return;}
+    const domain=TMP.d1?.domain||CUR.records[0]?.domain||DOMAIN||'';
+
+    // 共用：靈性診斷 + 靈性處方簽
+    let diagHtml=mkBadge('#7a9e7e','✦ 第一次療癒｜分析結果')
+      +'<div class="ptitle" style="margin-bottom:16px">第一次療癒</div>'
+      +mkHint('本次療癒領域',domain)
+      +mkSecLabel('#7a9e7e','靈性診斷')
+      +mkCard('根據你說的話，可能的表層信念',r.表層信念||[])
+      +mkBodyBlock(r.身體呈現||[])
+      +mkSecLabel('#b8960c','靈性處方簽')
+      +mkDL(r.下載清單||[]);
+    if(r.飲食建議&&r.飲食建議.length) diagHtml+='<div class="rc" style="margin-top:11px"><div class="rt">🌿 飲食建議</div>'+mkUL(r.飲食建議)+'</div>';
+    diagHtml+=mkHint('第二次療癒預告',r.下次預告||'');
+
+    if(!isAdmin){
+      el.innerHTML=diagHtml
+        +'<div class="brow">'
+        +'<button class="bg" onclick="SUB=\'s1\';rSub()">← 重新輸入</button>'
+        +'<button class="bg" onclick="goClientList()">我的療癒進度</button>'
+        +'<button class="bp" onclick="saveS1Client()">儲存這次療癒 ✦</button>'
+        +'</div>';
+    } else {
+      let s1steps='';
+      (r.清理步驟||[]).forEach(function(s,i){
+        s1steps+='<div class="step '+(s.重點?'hi':'')+'"><div class="snum">0'+(i+1)+'</div><div class="sbody"><h4>'+s.步驟名稱+'</h4><p>'+s.說明+'</p>'+(s.引導語?'<div class="sq">「'+s.引導語+'」</div>':'')+'</div></div>';
+      });
+      const adminHtml=(s1steps?'<div class="rc"><div class="rt">📋 清理流程 ＋ 挖掘問句</div>'+s1steps+'</div>':mkCard('挖掘問句',r.挖掘問句||[]))
+        +'<div class="dv"></div>'
+        +'<div class="nb"><div class="lbl">療癒師記錄</div>'
+        +'<textarea id="f1n" rows="3" placeholder="記錄這次清理的信念、個案反應…">'+(CUR.records[0]?.note||'')+'</textarea></div>'
+        +'<div class="brow">'
+        +'<button class="bg" onclick="SUB=\'s1\';rSub()">← 重新輸入</button>'
+        +'<button class="bg" onclick="saveS1AndHome()">儲存，稍後繼續</button>'
+        +'<button class="bp" onclick="saveS1()">儲存，進入第二次療癒 →</button>'
+        +'</div>';
+      el.innerHTML=''
+        +'<div style="display:flex;border-bottom:1px solid rgba(184,150,12,.2);margin-bottom:18px">'
+        +'<div id="s1tab1" onclick="sTab(\'s1\',1)" style="flex:1;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;color:var(--g);border-bottom:2px solid var(--g)">自我洞察</div>'
+        +'<div id="s1tab2" onclick="sTab(\'s1\',2)" style="flex:1;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent">療癒引導</div>'
+        +'</div>'
+        +'<div id="s1pane1">'+diagHtml+'</div>'
+        +'<div id="s1pane2" style="display:none">'+adminHtml+'</div>';
+    }
+  }
+
+  else if(SUB==='s2'){
+    setRail(2);
+    const r1=CUR.records[0]||{};
+    let prevInfo='';
+    if(r1.domain) prevInfo='<div class="stags"><span class="stag">上次領域：<strong>'+r1.domain+'</strong></span>'+(r1.feel?'<span class="stag">困擾：<strong>'+r1.feel.slice(0,16)+'…</strong></span>':'')+'</div>';
+    el.innerHTML=mkBadge('#6e8faf','✦ 第二次療癒')
+      +'<div class="ptitle">深化聚焦</div>'
+      +'<div class="pdesc">上次看了大方向。這次來說得更具體——身體哪裡有感覺？現在最強的情緒是什麼？</div>'
+      +prevInfo
+      +'<div class="lbl">身體哪裡不舒服或緊繃？</div>'
+      +'<textarea id="f2b" rows="2" placeholder="例：胃悶悶的，肩膀很緊，有時候會胸悶…">'+(TMP.body||'')+'</textarea>'
+      +'<div class="lbl" style="margin-top:12px">現在最強烈的情緒是什麼？</div>'
+      +'<textarea id="f2e" rows="2" placeholder="例：說不出來的委屈，加上一股恐懼…">'+(TMP.emotion||'')+'</textarea>'
+      +'<div class="lbl" style="margin-top:12px">上次療癒後，有什麼新的浮現或變輕了？（選填）</div>'
+      +'<textarea id="f2s" rows="2" placeholder="例：那個關於媽媽的畫面一直出現…">'+(TMP.shift||'')+'</textarea>'
+      +'<div class="brow">'
+      +(ROLE==='admin'?'<button class="bg" onclick="SUB=\'s1r\';rSub()">← 返回</button>':'<button class="bg" onclick="goClientList()">← 返回列表</button>')
+      +'<button class="bp" onclick="doAI2()">✦ AI 深入分析 →</button>'
+      +'</div>';
+  }
+
+  else if(SUB==='s2l'){
+    setRail(2);
+    el.innerHTML='<div class="loading"><span class="spin">✦</span><p>正在深入分析器官對應與信念根源...</p></div>';
+  }
+
+  else if(SUB==='s2r'){
+    setRail(2);
+    const r=TMP.r2||CUR.records[1]?.aiResult;
+    if(!r){SUB='s2';rSub();return;}
+
+    // 共用：身體對應 + 靈性診斷 + 靈性處方簽
+    let diagHtml=mkBadge('#6e8faf','✦ 第二次療癒｜分析結果')
+      +'<div class="ptitle" style="margin-bottom:16px">第二次療癒</div>';
+    if(r.器官對應&&r.器官對應.length){
+      diagHtml+='<div class="rc"><div class="rt">🌿 身體部位說的話</div><ul class="li">';
+      r.器官對應.forEach(o=>{diagHtml+='<li><strong>'+o.部位+'</strong>　<span style="color:var(--muted);font-size:12px">'+o.說明+'</span></li>';});
+      diagHtml+='</ul></div>';
+    }
+    diagHtml+=mkSecLabel('#6e8faf','靈性診斷')
+      +mkCard('更深層可能的信念',r.深層信念||[])
+      +mkBodyBlock(r.身體呈現||[])
+      +mkSecLabel('#b8960c','靈性處方簽')
+      +mkDL(r.下載清單||[]);
+    if(r.飲食建議&&r.飲食建議.length) diagHtml+='<div class="rc" style="margin-top:11px"><div class="rt">🌿 飲食建議</div>'+mkUL(r.飲食建議)+'</div>';
+    diagHtml+=mkHint('第三次療癒預告',r.下次預告||'');
+
+    if(!isAdmin){
+      el.innerHTML=diagHtml
+        +'<div class="brow">'
+        +'<button class="bg" onclick="SUB=\'s2\';rSub()">← 返回</button>'
+        +'<button class="bg" onclick="goClientList()">我的療癒進度</button>'
+        +'<button class="bp" onclick="saveS2Client()">儲存這次療癒 ✦</button>'
+        +'</div>';
+    } else {
+      let s2steps='';
+      (r.清理步驟||[]).forEach(function(s,i){
+        s2steps+='<div class="step '+(s.重點?'hi':'')+'"><div class="snum">0'+(i+1)+'</div><div class="sbody"><h4>'+s.步驟名稱+'</h4><p>'+s.說明+'</p>'+(s.引導語?'<div class="sq">「'+s.引導語+'」</div>':'')+'</div></div>';
+      });
+      const adminHtml=(s2steps?'<div class="rc"><div class="rt">📋 清理流程 ＋ 挖掘問句</div>'+s2steps+'</div>':mkCard('深入挖掘的問句',r.挖掘問句||[]))
+        +'<div class="dv"></div>'
+        +'<div class="nb"><div class="lbl">療癒師記錄</div>'
+        +'<textarea id="f2n" rows="3" placeholder="記錄根源信念、個案反應…">'+(CUR.records[1]?.note||'')+'</textarea></div>'
+        +'<div class="brow">'
+        +'<button class="bg" onclick="SUB=\'s2\';rSub()">← 返回</button>'
+        +'<button class="bg" onclick="saveS2AndHome()">儲存，稍後繼續</button>'
+        +'<button class="bp" onclick="saveS2()">儲存，進入第三次療癒 →</button>'
+        +'</div>';
+      el.innerHTML=''
+        +'<div style="display:flex;border-bottom:1px solid rgba(184,150,12,.2);margin-bottom:18px">'
+        +'<div id="s2tab1" onclick="sTab(\'s2\',1)" style="flex:1;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;color:var(--g);border-bottom:2px solid var(--g)">自我洞察</div>'
+        +'<div id="s2tab2" onclick="sTab(\'s2\',2)" style="flex:1;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent">療癒引導</div>'
+        +'</div>'
+        +'<div id="s2pane1">'+diagHtml+'</div>'
+        +'<div id="s2pane2" style="display:none">'+adminHtml+'</div>';
+    }
+  }
+
+  else if(SUB==='s3'){
+    setRail(3);
+    let lyrsHtml='';
+    LYRS.forEach(function(lr){
+      const label=lr[0],color=lr[1];
+      const sel=SEL_LAYERS.includes(label);
+      lyrsHtml+='<span class="lyr" style="background:'+(sel?color+'22':'transparent')+';color:'+color+';border-color:'+(sel?color:color+'44')+'" onclick="tgLyr(\''+label+'\')">'+label+'</span>';
+    });
+    // 收集第一、二次的信念供選擇
+  const r1beliefs = (CUR.records[0]?.aiResult?.表層信念)||[];
+  const r2beliefs = (CUR.records[1]?.aiResult?.深層信念)||[];
+  const allBeliefs = [...r1beliefs,...r2beliefs];
+  let beliefTags='';
+  if(allBeliefs.length){
+    beliefTags='<div class="lbl" style="margin-top:12px">或從 AI 分析結果中選擇：</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;margin-bottom:12px">';
+    allBeliefs.forEach(function(b){
+      const safe=b.replace(/"/g,'&quot;');
+      beliefTags+='<span style="padding:6px 12px;border:1px solid rgba(184,150,12,.35);border-radius:3px;font-size:12px;cursor:pointer;color:var(--ink);background:rgba(255,255,255,.5)" class="belief-tag" onclick="selectBelief(this)">'+safe+'</span>';
+    });
+    beliefTags+='</div>';
+  }
+
+  el.innerHTML=mkBadge('#9e7a8e','✦ 第三次療癒')
+      +'<div class="ptitle">精細清理</div>'
+      +'<div class="pdesc">前兩次找到了根源方向。這次說出最核心的那一個信念，對它做完整的清理。</div>'
+      +'<div class="nb"><div class="lbl">這次要清理的核心信念（只說一個）</div>'
+      +beliefTags
+      +'<textarea id="f3b" rows="2" placeholder="例：「我不值得被愛」或「成功對我來說是危險的」…">'+(TMP.belief||'')+'</textarea></div>'
+      +'<div class="lbl">信念層次（肌肉測試後點選，可複選）</div>'
+      +'<div class="lyrs">'+lyrsHtml+'</div>'
+      +'<div class="lbl" style="margin-top:14px">次要獲益（這個信念有帶來什麼好處嗎？有才填）</div>'
+      +'<textarea id="f3bn" rows="2" placeholder="例：讓我有理由不去嘗試、讓我感覺安全…">'+(TMP.benefit||'')+'</textarea>'
+      +'<div class="brow">'
+      +(ROLE==='admin'?'<button class="bg" onclick="SUB=\'s2r\';rSub()">← 返回</button>':'<button class="bg" onclick="goClientList()">← 返回列表</button>')
+      +'<button class="bp" onclick="doAI3()">✦ AI 深入分析 →</button>'
+      +'</div>';
+  }
+
+  else if(SUB==='s3l'){
+    setRail(3);
+    el.innerHTML='<div class="loading"><span class="spin">✦</span><p>正在生成個人化的完整清理流程...</p></div>';
+  }
+
+  else if(SUB==='s3r'){
+    setRail(3);
+    const r=TMP.r3||CUR.records[2]?.aiResult;
+    if(!r){SUB='s3';rSub();return;}
+    const r1=CUR.records[0]||{},r2=CUR.records[1]||{};
+    const belief=TMP.d3?.belief||CUR.records[2]?.belief||'';
+
+    // 共用：靈性診斷 + 靈性處方簽
+    let diagHtml=mkBadge('#9e7a8e','✦ 第三次療癒｜完整清理')
+      +'<div class="ptitle" style="margin-bottom:16px">第三次療癒</div>'
+      +mkHint('本次精細清理目標','「'+belief+'」')
+      +mkSecLabel('#9e7a8e','靈性診斷')
+      +mkSecLabel('#b8960c','靈性處方簽')
+      +mkDL(r.下載清單||[]);
+    if(r.飲食建議&&r.飲食建議.length) diagHtml+='<div class="rc" style="margin-top:11px"><div class="rt">🌿 飲食建議</div>'+mkUL(r.飲食建議)+'</div>';
+    if(r.療癒摘要) diagHtml+='<div class="rc" style="margin-top:12px"><div class="rt">🌿 三次療癒的整體意義</div><p style="font-size:13px;color:var(--muted);line-height:1.85">'+r.療癒摘要+'</p>'+(r.後續建議?'<p style="font-size:11px;color:var(--muted);margin-top:8px;font-style:italic">下次建議：'+r.後續建議+'</p>':'')+'</div>';
+    diagHtml+='<div style="padding:14px 16px;border:1px solid rgba(184,150,12,.18);border-radius:3px;margin-top:12px;font-size:12px;color:var(--muted);line-height:2.2"><div style="font-size:9px;letter-spacing:.13em;color:var(--g);text-transform:uppercase;margin-bottom:8px">三次療癒歷程摘要</div>第一次 ｜ '+(r1.domain||'')+' 領域的表層信念<br>'+(r2.body?'第二次 ｜ 身體與情緒的深層根源<br>':'')+'第三次 ｜ 精細清理「'+belief+'」</div>';
+
+    if(!isAdmin){
+      // 個案：只看靈性診斷 + 靈性處方簽
+      el.innerHTML=diagHtml
+        +'<div class="brow">'
+        +'<button class="bg" onclick="goClientList()">我的療癒進度</button>'
+        +'<button class="bp" onclick="saveS3()">完成這輪療癒</button>'
+        +'</div>';
+    } else {
+      // Admin：兩個頁簽
+      let stepsHtml='';
+      (r.清理步驟||[]).forEach(function(s,i){
+        stepsHtml+='<div class="step '+(s.重點?'hi':'')+'"><div class="snum">0'+(i+1)+'</div><div class="sbody"><h4>'+s.步驟名稱+'</h4><p>'+s.說明+'</p>'+(s.引導語?'<div class="sq">「'+s.引導語+'」</div>':'')+'</div></div>';
+      });
+      const flowHtml='<div class="rc"><div class="rt">📋 完整清理流程</div>'+stepsHtml+'</div>'
+        +'<div class="dv"></div>'
+        +'<div class="nb"><div class="lbl">療癒師筆記</div>'
+        +'<textarea id="f3n" rows="4" placeholder="記錄整體轉變、個案的反應、下次建議方向…">'+(CUR.records[2]?.note||'')+'</textarea></div>'
+        +'<div class="brow">'
+        +'<button class="bg" onclick="SUB=\'s3\';rSub()">← 返回</button>'
+        +'<button class="bp" onclick="saveS3()">儲存並完成這輪療癒</button>'
+        +'</div>';
+      el.innerHTML=''
+        +'<div style="display:flex;border-bottom:1px solid rgba(184,150,12,.2);margin-bottom:18px">'
+        +'<div id="s3tab1" onclick="sTab(\'s3\',1)" style="flex:1;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;color:var(--g);border-bottom:2px solid var(--g)">自我洞察</div>'
+        +'<div id="s3tab2" onclick="sTab(\'s3\',2)" style="flex:1;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent">完整療癒流程</div>'
+        +'</div>'
+        +'<div id="s3pane1">'+diagHtml+'</div>'
+        +'<div id="s3pane2" style="display:none">'+flowHtml+'</div>';
+    }
+  }
+
+  else if(SUB==='done'){
+    el.innerHTML='<div style="text-align:center;padding:40px 20px">'
+      +'<div style="font-size:44px;color:var(--g);margin-bottom:14px">✦</div>'
+      +'<div style="font-size:22px;font-weight:300;color:var(--dk);margin-bottom:8px">這輪三次療癒已完成</div>'
+      +'<div style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:24px">資料已儲存。</div>'
+      +(isAdmin?'<button class="bp" onclick="goTab(\'c\')">回到個案列表</button>':'<div style="font-size:13px;color:var(--muted)">感謝你完成這次療癒，期待下次與你相遇 ✦</div>')
+      +'</div>';
+  }
+}
+
+function sTab(p,n){
+  document.getElementById(p+'pane1').style.display=n===1?'block':'none';
+  document.getElementById(p+'pane2').style.display=n===2?'block':'none';
+  document.getElementById(p+'tab1').style.color=n===1?'var(--g)':'var(--muted)';
+  document.getElementById(p+'tab2').style.color=n===2?'var(--g)':'var(--muted)';
+  document.getElementById(p+'tab1').style.borderBottomColor=n===1?'var(--g)':'transparent';
+  document.getElementById(p+'tab2').style.borderBottomColor=n===2?'var(--g)':'transparent';
+}
+
+// ══ AI 分析 ══
+async function doAI1(){
+  if(!DOMAIN){alert('請先選擇一個生命領域');return;}
+  const feel=gv('f1f');
+  if(!feel.trim()){alert('請描述一下目前的困擾');return;}
+  TMP.d1={domain:DOMAIN,feel,origin:gv('f1o')};
+  TMP.feel=feel;TMP.origin=gv('f1o');
+  SUB='s1l';rSub();
+  try{
+    TMP.r1=await callAI('你是結合希塔療癒與醫療靈媒觀點的療癒師助手。請用繁體中文白話回答。\n個案領域：'+DOMAIN+'\n困擾：「'+feel+'」\n'+(TMP.origin?'起源：「'+TMP.origin+'」\n':'')+SPIRITUAL_FOOD+'\n'+MEDICAL_MEDIUM+'\n請只回傳合法JSON，不加任何說明文字。所有字串值不得含換行字元。格式：{"表層信念":["信念1","信念2","信念3"],"身體呈現":[{"器官":"器官名稱","說明":"這個情緒信念如何在此器官呈現，可能症狀是什麼，一句話"},{"器官":"器官名稱","說明":"說明"}],"清理步驟":[{"步驟名稱":"步驟名","說明":"說明","引導語":"引導語","重點":true},{"步驟名稱":"挖掘問句","說明":"針對本次個案的3個深挖問句","引導語":"問句1 / 問句2 / 問句3","重點":false}],"下載清單":["下載1","下載2","下載3"],"飲食建議":["食物1及靈性意義","食物2及靈性意義"],"下次預告":"一句話"}');
+    // 自動儲存 s1 結果
+    const _rec1={domain:TMP.d1?.domain||DOMAIN,feel:TMP.d1?.feel||'',origin:TMP.d1?.origin||'',aiResult:TMP.r1,note:''};
+    saveProg(1,[_rec1,...(CUR.records||[]).slice(1)]);
+    SUB='s1r';rSub();
+  }catch(e){SUB='s1';rSub();alert('分析失敗：'+e.message);}
+}
+
+async function doAI2(){
+  const body=gv('f2b'),emotion=gv('f2e');
+  if(!body.trim()&&!emotion.trim()){alert('請描述身體感受或情緒狀態');return;}
+  TMP.body=body;TMP.emotion=emotion;TMP.shift=gv('f2s');
+  SUB='s2l';rSub();
+  const r1=CUR.records[0]||{};
+  try{
+    TMP.r2=await callAI('你是結合希塔療癒與醫療靈媒觀點的療癒師助手。請用繁體中文白話回答。\n第一次背景：領域'+r1.domain+'，困擾「'+r1.feel+'」\n身體：「'+body+'」\n情緒：「'+emotion+'」\n'+(TMP.shift?'變化：「'+TMP.shift+'」\n':'')+SPIRITUAL_FOOD+'\n'+MEDICAL_MEDIUM+'\n請只回傳合法JSON，不加任何說明文字。所有字串值不得含換行字元。格式：{"器官對應":[{"部位":"部位名稱","說明":"一句話"}],"深層信念":["信念1","信念2","信念3"],"身體呈現":[{"器官":"器官名稱","說明":"這個情緒信念如何在此器官呈現，可能症狀，一句話"},{"器官":"器官名稱","說明":"說明"}],"清理步驟":[{"步驟名稱":"步驟名","說明":"說明","引導語":"引導語","重點":true},{"步驟名稱":"深挖問句","說明":"針對本次身體與情緒的3個深挖問句","引導語":"問句1 / 問句2 / 問句3","重點":false}],"下載清單":["下載1","下載2","下載3"],"飲食建議":["食物1及靈性意義","食物2及靈性意義"],"下次預告":"一句話"}');
+    // 自動儲存 s2 結果
+    const _recs2=CUR.records||[];
+    const _rec2={body:TMP.body||'',emotion:TMP.emotion||'',shift:TMP.shift||'',aiResult:TMP.r2,note:''};
+    saveProg(2,[_recs2[0],_rec2,..._recs2.slice(2)]);
+    SUB='s2r';rSub();
+  }catch(e){SUB='s2';rSub();alert('分析失敗：'+e.message);}
+}
+
+async function doAI3(){
+  const belief=gv('f3b');
+  if(!belief.trim()){alert('請輸入這次要清理的核心信念');return;}
+  // 先存好所有輸入值
+  TMP.d3={belief,layers:[...SEL_LAYERS],benefit:gv('f3bn')};
+  TMP.belief=belief;TMP.benefit=gv('f3bn');
+  // 先確保 records，再切換 loading 畫面（避免切換後 fetch 卡死）
+  let r1=(CUR.records&&CUR.records[0])||{};
+  let r2=(CUR.records&&CUR.records[1])||{};
+  if(!r1.domain||!r2.body){
+    try{
+      const to=new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),4000));
+      const fresh=await Promise.race([loadCaseFromCloud(CUR.id),to]);
+      if(fresh&&fresh.records){CUR.records=fresh.records;r1=fresh.records[0]||{};r2=fresh.records[1]||{};}
+    }catch(e){console.log('補載記錄略過',e);}
+  }
+  SUB='s3l';rSub();
+  try{
+    const ai3result=await callAI('你是希塔療癒的資深療癒師助手。請用繁體中文白話回答。\n背景：'+r1.domain+'領域，身體「'+r2.body+'」，情緒「'+r2.emotion+'」\n核心信念：「'+belief+'」\n層次：'+(SEL_LAYERS.join('、')||'未確認')+'\n次要獲益：'+(TMP.benefit||'無')+'\n請只回傳合法JSON，不加任何說明文字。所有字串值不得含換行字元。格式：{"清理步驟":[{"步驟名稱":"步驟名","說明":"一句話說明","引導語":"引導語文字","重點":true}],"下載清單":["下載1","下載2","下載3","下載4"],"飲食建議":["食物1及靈性意義","食物2及靈性意義"],"療癒摘要":"整體脈絡一到兩句","後續建議":"下次方向一句話"}');
+    TMP.r3=ai3result;
+    // 自動儲存 s3 結果
+    const _recs3=CUR.records||[];
+    const _rec3={belief:TMP.d3?.belief||'',layers:TMP.d3?.layers||[],benefit:TMP.d3?.benefit||'',aiResult:TMP.r3,note:''};
+    saveProg(3,[_recs3[0],_recs3[1],_rec3]);
+    SUB='s3r';rSub();
+  }catch(e){SUB='s3';rSub();alert('分析失敗：'+e.message);}
+}
+
+// ══ 儲存 ══
+function saveS1Client(){
+  const rec={domain:TMP.d1?.domain||DOMAIN,feel:TMP.d1?.feel||'',origin:TMP.d1?.origin||'',aiResult:TMP.r1,note:''};
+  saveProg(1,[rec,...(CUR.records||[]).slice(1)]);
+  document.getElementById('sub').innerHTML='<div style="text-align:center;padding:40px 20px">'
+    +'<div style="font-size:44px;color:var(--g);margin-bottom:14px">✦</div>'
+    +'<div style="font-size:20px;font-weight:300;color:var(--dk);margin-bottom:8px">第一次療癒已完成</div>'
+    +'<div style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:20px">記錄已儲存，期待下次與你相遇 ✦</div>'
+    +'<button class="bg" onclick="goClientList()">← 返回我的療癒列表</button>'
+    +'</div>';
+}
+function saveS2Client(){
+  const rec={body:TMP.body||'',emotion:TMP.emotion||'',shift:TMP.shift||'',aiResult:TMP.r2,note:''};
+  const recs=CUR.records||[];
+  saveProg(2,[recs[0],rec,...recs.slice(2)]);
+  document.getElementById('sub').innerHTML='<div style="text-align:center;padding:40px 20px">'
+    +'<div style="font-size:44px;color:var(--g);margin-bottom:14px">✦</div>'
+    +'<div style="font-size:20px;font-weight:300;color:var(--dk);margin-bottom:8px">第二次療癒已完成</div>'
+    +'<div style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:20px">記錄已儲存，期待下次與你相遇 ✦</div>'
+    +'<button class="bg" onclick="goClientList()">← 返回我的療癒列表</button>'
+    +'</div>';
+}
+
+function saveS1(){
+  const note=gv('f1n');
+  const rec={domain:TMP.d1?.domain||DOMAIN,feel:TMP.d1?.feel||'',origin:TMP.d1?.origin||'',aiResult:TMP.r1,note};
+  saveProg(1,[rec,...(CUR.records||[]).slice(1)]);
+  TMP.body='';TMP.emotion='';TMP.shift='';TMP.r2=null;
+  SUB='s2';setRail(2);rSub();
+}
+function saveS1AndHome(){
+  const note=gv('f1n');
+  const rec={domain:TMP.d1?.domain||DOMAIN,feel:TMP.d1?.feel||'',origin:TMP.d1?.origin||'',aiResult:TMP.r1,note};
+  saveProg(1,[rec,...(CUR.records||[]).slice(1)]);
+  goTab('c');
+}
+function saveS2(){
+  const note=gv('f2n');
+  const rec={body:TMP.body||'',emotion:TMP.emotion||'',shift:TMP.shift||'',aiResult:TMP.r2,note};
+  const recs=CUR.records||[];
+  saveProg(2,[recs[0],rec,...recs.slice(2)]);
+  TMP.belief='';TMP.benefit='';TMP.r3=null;SEL_LAYERS=[];
+  SUB='s3';setRail(3);rSub();
+}
+function saveS2AndHome(){
+  const note=gv('f2n');
+  const rec={body:TMP.body||'',emotion:TMP.emotion||'',shift:TMP.shift||'',aiResult:TMP.r2,note};
+  const recs=CUR.records||[];
+  saveProg(2,[recs[0],rec,...recs.slice(2)]);
+  goTab('c');
+}
+function saveS3(){
+  const note=gv('f3n');
+  const rec={belief:TMP.d3?.belief||'',layers:TMP.d3?.layers||[],benefit:TMP.d3?.benefit||'',aiResult:TMP.r3,note};
+  const recs=CUR.records||[];
+  saveProg(3,[recs[0],recs[1],rec]);
+  if(ROLE==='client'){
+    document.getElementById('sub').innerHTML='<div style="text-align:center;padding:40px 20px">'
+      +'<div style="font-size:44px;color:var(--g);margin-bottom:14px">✦</div>'
+      +'<div style="font-size:20px;font-weight:300;color:var(--dk);margin-bottom:8px">三次療癒全部完成</div>'
+      +'<div style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:20px">感謝你完成這次療癒旅程 ✦</div>'
+      +'<button class="bg" onclick="goClientList()">← 返回我的療癒列表</button>'
+      +'</div>';
+    setRail(3);
+  } else {
+    SUB='done';rSub();
+  }
+}
+
+// ══ 初始化 ══
+(function init(){
+  document.getElementById('pw-screen').style.display='block';
+  document.getElementById('main-app').style.display='none';
+})();
+</script>
+</body>
+</html>
